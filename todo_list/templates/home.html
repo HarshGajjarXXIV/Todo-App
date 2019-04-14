@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Homepage | To-Do App {% endblock %}
+
+{% block content %}
+
+
+    {% if all_items %}
+        <table class="table table-bordered">
+            {% for things in all_items %}
+                {% if things.completed %}
+                    <tr class="table-secondary">
+                        <td class="striker"><a href="{% url 'edit' things.id %}">{{ things.item }}</a></td>
+                        <td><center><a href="{% url 'uncompleted' things.id %}">Mark as Uncompleted</a></center></td>
+                        <td><center><a href="{% url 'delete' things.id %}">Delete</a></center></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td><a href="{% url 'edit' things.id %}">{{ things.item }}</a></td>
+                        <td><center><a href="{% url 'completed' things.id %}">Mark as completed</a></center></td>
+                        <td><center><a href="{% url 'delete' things.id %}">Delete</a></center></td>
+                    </tr>
+                {% endif %}
+
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
